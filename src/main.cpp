@@ -1,8 +1,11 @@
 #include <iostream>
 #include <fstream>
 
+#include "core/token/Token.h"
+#include "Scanner.h"
 
 int readFile(std::string&, const std::string&);
+int compile(const std::string&);
 
 int main(int argc, char **argv) {
     if(argc != 2) {
@@ -16,7 +19,7 @@ int main(int argc, char **argv) {
         return res;
     }
 
-    std::cout<<"Source file: "<< std::endl <<source;
+    compile(source);
     return 0;
 }
 
@@ -38,5 +41,16 @@ int readFile(std::string& source, const std::string& path) {
 
     source.assign(str.begin(), str.end());
 
+    return 0;
+}
+
+int compile(const std::string& source) {
+    Scanner scanner(source);
+    Token token = *scanner.nextToken();
+    while (token.getKind() != TokenKind::END) {
+        std::cout<<token.toString();
+
+        token = *scanner.nextToken();
+    }
     return 0;
 }
