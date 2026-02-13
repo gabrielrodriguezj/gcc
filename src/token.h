@@ -23,15 +23,15 @@ typedef enum {
     TOKEN_RETURN, TOKEN_TRUE, TOKEN_WHILE,
 
     TOKEN_EOF
-} TokenType;
+} token_type_t;
 
 typedef struct {
-    TokenType type;
+    token_type_t type;
     const char* start;
     int length;
     int line;
-} Token;
+} token_t;
 
-void print_token(Token);
+void print_token(token_t);
 
 #endif //GCC_TOKEN_H

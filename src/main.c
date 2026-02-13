@@ -54,14 +54,15 @@ int main(const int argc, const char* argv[]) {
         exit(74);
     }
 
-    initScanner(buffer);
+    init_scanner(buffer);
     while (true) {
-        Token token = scanToken();
+        const token_t token = scan_token();
         print_token(token);
-
 
         if (token.type == TOKEN_EOF) {
             break;
         }
     }
+
+    free(buffer);
 }

@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-char* token_type_to_str(TokenType type) {
+static char* token_type_to_str(const token_type_t type) {
     switch (type) {
         case TOKEN_AND: return "AND";
         case TOKEN_LEFT_PAREN: return "LEFT_PAREN";
@@ -40,6 +40,6 @@ char* token_type_to_str(TokenType type) {
     }
 }
 
-void print_token(Token token) {
+void print_token(const token_t token) {
     printf("<%s>", token_type_to_str(token.type));
 }
