@@ -3,4 +3,6 @@ project(gcc C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(gcc main.c)
+add_executable(gcc src/main.c
+        src/scanner.c
+        src/scanner.h)
