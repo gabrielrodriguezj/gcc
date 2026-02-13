@@ -23,6 +23,7 @@ static char* token_type_to_str(const token_type_t type) {
         case TOKEN_LESS_EQUAL: return "LESS_EQUAL";
         case TOKEN_OR: return "OR";
         case TOKEN_PLUS: return "PLUS";
+        case TOKEN_SEMICOLON: return "SEMICOLON";
         case TOKEN_MINUS: return "MINUS";
         case TOKEN_IDENTIFIER: return "ID";
         case TOKEN_STRING: return "STRING";
@@ -33,9 +34,12 @@ static char* token_type_to_str(const token_type_t type) {
         case TOKEN_NULL: return "NULL";
         case TOKEN_FOR: return "FOR";
         case TOKEN_IF: return "IF";
+        case TOKEN_INT: return "INT";
         case TOKEN_WHILE: return "WHILE";
         case TOKEN_RETURN: return "RETURN";
+        case TOKEN_MAIN: return "MAIN";
         case TOKEN_EOF: return "$";
+        case TOKEN_ERROR: return "ERROR";
         default: return "???";
     }
 }

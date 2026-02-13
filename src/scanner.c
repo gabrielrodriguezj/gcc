@@ -118,7 +118,15 @@ static token_type_t identifierType() {
                 }
             }
             break;
-        case 'i': return check_keyword(1, 1, "f", TOKEN_IF);
+        case 'i':
+            if (scanner.current - scanner.start > 1) {
+                switch (scanner.start[1]) {
+                    case 'f': return check_keyword(2, 0, "", TOKEN_IF);
+                    case 'n': return check_keyword(2, 1, "t", TOKEN_INT);
+                }
+            }
+            break;
+        case 'm': return check_keyword(1, 3, "ain", TOKEN_MAIN);
         case 'n': return check_keyword(1, 3, "ull", TOKEN_NULL);
         case 'o': return check_keyword(1, 1, "r", TOKEN_OR);
         case 'r': return check_keyword(1, 5, "eturn", TOKEN_RETURN);
