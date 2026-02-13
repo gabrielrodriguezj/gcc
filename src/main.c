@@ -42,15 +42,15 @@ int main(const int argc, const char* argv[]) {
         exit(64);
     }
 
-    if (argc == 2) {
-        char* buffer = nullptr;
-        if (readFile(&buffer, argv[1]) != 0) {
-            exit(74);
-        }
-
-        printf("%s\n", buffer);
-    } else {
+    if (argc != 2) {
         fprintf(stderr, "For the moment, only one parameter is accepted");
         exit(64);
     }
+    
+    char* buffer = nullptr;
+    if (readFile(&buffer, argv[1]) != 0) {
+        exit(74);
+    }
+
+    printf("%s\n", buffer);
 }
