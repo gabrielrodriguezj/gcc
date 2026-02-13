@@ -60,6 +60,15 @@ static token_t make_token(token_type_t type) {
     return token;
 }
 
+static token_t errorToken(const char* message) {
+    token_t token;
+    token.type = TOKEN_ERROR;
+    token.start = message;
+    token.length = (int)strlen(message);
+    token.line = scanner.line;
+    return token;
+}
+
 static void skip_whitespace() {
     for (;;) {
         char c = peek();

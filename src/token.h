@@ -22,7 +22,9 @@ typedef enum {
     TOKEN_FOR, TOKEN_IF, TOKEN_NULL,
     TOKEN_RETURN, TOKEN_TRUE, TOKEN_WHILE,
 
-    TOKEN_EOF
+    TOKEN_EOF,
+
+    TOKEN_ERROR, // It is not a token, but it works for handling lexical errors
 } token_type_t;
 
 typedef struct {

@@ -3,5 +3,5 @@
 #include "token.h"
 
 void init_scanner(const char* source);
-Token scan_token();
+token_t scan_token();
 #endif //GCC_SCANNER_H
