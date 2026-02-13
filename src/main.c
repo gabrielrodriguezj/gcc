@@ -59,7 +59,7 @@ int main(const int argc, const char* argv[]) {
         const token_t token = scan_token();
         print_token(token);
 
-        if (token.type == TOKEN_EOF) {
+        if (token.type == TOKEN_EOF || token.type == TOKEN_ERROR) {
             break;
         }
     }
