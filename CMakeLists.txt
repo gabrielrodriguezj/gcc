@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 23)
 
 add_executable(gcc src/main.c
         src/scanner.c
-        src/scanner.h)
+        src/scanner.h
+        src/token.c
+        src/token.h)

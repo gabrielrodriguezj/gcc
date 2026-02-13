@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "scanner.h"
+
 
 // Read the input file
 static int readFile(char** buffer, const char* path) {
@@ -46,11 +48,20 @@ int main(const int argc, const char* argv[]) {
         fprintf(stderr, "For the moment, only one parameter is accepted");
         exit(64);
     }
-    
+
     char* buffer = nullptr;
     if (readFile(&buffer, argv[1]) != 0) {
         exit(74);
     }
 
-    printf("%s\n", buffer);
+    initScanner(buffer);
+    while (true) {
+        Token token = scanToken();
+        print_token(token);
+
+
+        if (token.type == TOKEN_EOF) {
+            break;
+        }
+    }
 }
