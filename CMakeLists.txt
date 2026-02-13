@@ -7,4 +7,6 @@ add_executable(gcc src/main.c
         src/scanner.c
         src/scanner.h
         src/token.c
-        src/token.h)
+        src/token.h
+        src/compiler.c
+        src/compiler.h)

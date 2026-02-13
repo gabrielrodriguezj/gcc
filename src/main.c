@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "scanner.h"
-
+#include "compiler.h"
 
 // Read the input file
 static int readFile(char** buffer, const char* path) {
@@ -54,15 +53,8 @@ int main(const int argc, const char* argv[]) {
         exit(74);
     }
 
-    init_scanner(buffer);
-    while (true) {
-        const token_t token = scan_token();
-        print_token(token);
-
-        if (token.type == TOKEN_EOF || token.type == TOKEN_ERROR) {
-            break;
-        }
-    }
-
+    // Start the compilation process
+    compile(buffer);
+    
     free(buffer);
 }
