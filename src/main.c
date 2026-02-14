@@ -55,6 +55,6 @@ int main(const int argc, const char* argv[]) {
 
     // Start the compilation process
     compile(buffer);
-    
+
     free(buffer);
 }

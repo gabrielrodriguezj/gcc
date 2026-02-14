@@ -145,13 +145,38 @@ static token_t number() {
 
     // Look for a fractional part.
     if (peek() == '.' && is_digit(peek_next())) {
-        // Consume the ".".
+        // Consume the "."
         advance();
 
         while (is_digit(peek())) advance();
     }
+    else if (peek() == '.') {
+        // Example: 36.x where xx is any string different of a digit
+        return errorToken("Unterminated number.");
+    }
 
-    // TODO: Add the E notation
+    if (peek() == 'E' && (is_digit(peek_next()) || peek_next() == '+' || peek_next() == '-')) {
+        // Consume the "E"
+        advance();
+
+        if ((peek() == '+' || peek() == '-') && is_digit(peek_next()) ) {
+            // Consume the "+" or "-" character, for scientific notation
+            advance();
+        }
+        else if ((peek() == '+' || peek() == '-') || !is_digit(peek())) {
+            // Example: 36E+xx where xx is any string different of a digit
+            return errorToken("Unterminated number.");
+        }
+
+        while (is_digit(peek())) advance();
+    }
+    else if (peek() == 'E'){
+        return errorToken("Unterminated number.");
+    }
+
+    if (is_alpha(peek())) {
+        return errorToken("Unterminated number.");
+    }
 
     return make_token(TOKEN_NUMBER);
 }
