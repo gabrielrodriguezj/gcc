@@ -6,3 +6,5 @@ This compiler was written primarily following the book "Writing a C Compiler: Bu
 ## References
 * Sandler, N. (2024). Writing a C compiler: Build a real programming language from scratch. No Starch Press.
 * Nystrom, R. (2021). Crafting interpreters. Genever Benning.
+* Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2006). Compilers: Principles, techniques, and tools (2nd ed.). Pearson.
+
