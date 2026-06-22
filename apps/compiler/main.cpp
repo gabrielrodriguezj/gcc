@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 #include "gcc/lexer/Lexer.hpp"
+#include "gcc/parser/Parser.hpp"
 
 std::string readFile(const std::string& filename)
 {
@@ -35,9 +36,18 @@ int main(const int argc, const char* argv[]) {
     try
     {
         std::string sourceCode = readFile(argv[1]);
-        std::cout << sourceCode << std::endl;
 
         Lexer lexer(sourceCode);
+        Parser parser(lexer);
+
+        bool res = parser.parse();
+        if (res) {
+            std::cout<<"Valid program";
+        }
+        else {
+            std::cout<<"Invalid program";
+        }
+
     }
     catch (const std::exception& e)
     {
