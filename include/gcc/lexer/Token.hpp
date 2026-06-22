@@ -30,7 +30,7 @@ typedef enum {
   } TokenName;
 
 typedef struct {
-    TokenName type;
+    TokenName name;
     int offset;
     int length;
     int line;

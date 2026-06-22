@@ -11,7 +11,7 @@ bool Parser::parse() {
     currentToken = lexer.next();
     program();
 
-    if (currentToken.type != TokenName::END) {
+    if (currentToken.name != TokenName::END) {
         return false;
     }
     return true;
@@ -43,13 +43,13 @@ void Parser::expression() {
 }
 
 void Parser::match(TokenName tokenName) {
-    if (tokenName == currentToken.type) {
+    if (tokenName == currentToken.name) {
         currentToken = lexer.next();
         return;
     }
 
     std::stringstream ss;
-    ss<<"Error: Found " << to_string(currentToken.type) << " token instead of "
+    ss<<"Error: Found " << to_string(currentToken.name) << " token instead of "
     << to_string(tokenName) <<". Line: " << currentToken.line << ".";
     throw std::runtime_error (ss.str());;
     //return false;

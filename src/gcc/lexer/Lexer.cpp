@@ -193,9 +193,9 @@ char Lexer::peekNext() const {
 }
 
 
-Token Lexer::makeToken(TokenName type) const {
+Token Lexer::makeToken(TokenName name) const {
     Token token;
-    token.type = type;
+    token.name = name;
     token.offset = start;
     token.length = current - start;
     token.line = line;
