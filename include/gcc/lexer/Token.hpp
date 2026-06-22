@@ -1,6 +1,8 @@
 #ifndef GCC_TOKEN_HPP
 #define GCC_TOKEN_HPP
 
+#include <string_view>
+
 typedef enum {
     // Single-character tokens.
     LEFT_PAREN, RIGHT_PAREN,
