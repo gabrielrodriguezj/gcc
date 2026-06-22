@@ -7,4 +7,9 @@ include_directories(include)
 
 add_executable(gcc apps/compiler/main.cpp
         src/gcc/lexer/Lexer.cpp
-        src/gcc/parser/Parser.cpp)
+        src/gcc/parser/Parser.cpp
+        src/gcc/ast/ProgramAST.cpp
+        src/gcc/ast/FunctionStmt.cpp
+        src/gcc/ast/ConstantExpr.cpp
+        src/gcc/ast/ReturnStmt.cpp
+)
