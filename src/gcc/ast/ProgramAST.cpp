@@ -2,6 +2,6 @@
 
 #include "gcc/ast/Statement.hpp"
 
-ProgramAST::ProgramAST(Statement &function):function(function) {
+ProgramAST::ProgramAST(std::unique_ptr<Statement>  function):function(std::move(function)) {
 
 }

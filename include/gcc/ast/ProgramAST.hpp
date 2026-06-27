@@ -4,9 +4,9 @@
 
 class ProgramAST {
 public:
-    ProgramAST(Statement &);
+    ProgramAST(std::unique_ptr<Statement> );
 private:
-    Statement function;
+    std::unique_ptr<Statement>  function;
 };
 
 #endif //GCC_PROGRAM_HPP

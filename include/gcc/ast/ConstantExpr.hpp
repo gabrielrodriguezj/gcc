@@ -7,6 +7,8 @@ class ConstantExpr : public Expression {
 public:
     ConstantExpr(const Token &);
 
+    friend std::ostream& operator<<(std::ostream&, const Token&);
+
 private:
     Token value;
 };

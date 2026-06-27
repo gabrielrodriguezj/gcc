@@ -1,5 +1,5 @@
 #include "gcc/ast/ReturnStmt.hpp"
 
-ReturnStmt :: ReturnStmt(const Expression &expression) : expression(expression) {
+ReturnStmt :: ReturnStmt(std::unique_ptr<Expression>  expression) : expression(std::move(expression)) {
 
 }

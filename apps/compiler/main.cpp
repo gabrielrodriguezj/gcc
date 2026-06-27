@@ -40,13 +40,8 @@ int main(const int argc, const char* argv[]) {
         Lexer lexer(sourceCode);
         Parser parser(lexer);
 
-        bool res = parser.parse();
-        if (res) {
-            std::cout<<"Valid program";
-        }
-        else {
-            std::cout<<"Invalid program";
-        }
+        ProgramAST ast = parser.parse();
+        int a = 0;
 
     }
     catch (const std::exception& e)

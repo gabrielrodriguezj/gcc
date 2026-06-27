@@ -3,43 +3,58 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "gcc/ast/ConstantExpr.hpp"
+#include "gcc/ast/ReturnStmt.hpp"
+
 Parser::Parser(Lexer &lexer) : lexer(lexer) {
 
 }
 
-bool Parser::parse() {
+ProgramAST Parser::parse() {
     currentToken = lexer.next();
-    program();
+    ProgramAST ast = program();
 
-    if (currentToken.name != TokenName::END) {
-        return false;
+    if (currentToken.name == TokenName::END) {
+        return ast;
     }
-    return true;
+
+    std::stringstream ss;
+    ss<<"Error: Found. Line: " << currentToken.line << ".";
+    throw std::runtime_error (ss.str());;
 }
 
-void Parser::program() {
-    function();
+ProgramAST Parser::program() {
+    std::unique_ptr<Statement>  stmt = function();
+    return ProgramAST(std::move(stmt));
 }
 
-void Parser::function() {
+std::unique_ptr<FunctionStmt> Parser::function() {
     match(TokenName::INT);
+    Token name = currentToken;
     match(TokenName::IDENTIFIER);
     match(TokenName::LEFT_PAREN);
     match(TokenName::VOID);
     match(TokenName::RIGHT_PAREN);
     match(TokenName::LEFT_BRACE);
-    statement();
+    std::unique_ptr<Statement> body = statement();
     match(TokenName::RIGHT_BRACE);
+    return std::make_unique<FunctionStmt>(name, std::move(body));
 }
 
-void Parser::statement() {
+std::unique_ptr<Statement> Parser::statement() {
     match(TokenName::RETURN);
-    expression();
+    std::unique_ptr<Expression> expr = expression();
+
+
+
     match(TokenName::SEMICOLON);
+    return std::make_unique<ReturnStmt>(std::move(expr));
 }
 
-void Parser::expression() {
+std::unique_ptr<Expression> Parser::expression() {
+    Token token = currentToken;
     match(TokenName::NUMBER);
+    return std::make_unique<ConstantExpr>(token);
 }
 
 void Parser::match(TokenName tokenName) {

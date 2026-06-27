@@ -3,13 +3,13 @@
 
 #include "Statement.hpp"
 
-class FunctionStmt {
+class FunctionStmt: public Statement {
 public:
-    FunctionStmt(Token &, Statement &);
+    FunctionStmt(Token &, std::unique_ptr<Statement>);
 
 private:
     Token name;
-    Statement body;
+    std::unique_ptr<Statement> body;
 };
 
 #endif //GCC_FUNCTIONNODE_HPP

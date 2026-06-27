@@ -2,6 +2,6 @@
 
 #include "gcc/ast/Statement.hpp"
 
-FunctionStmt::FunctionStmt(Token &name, Statement &body) : name(name), body(body) {
+FunctionStmt::FunctionStmt(Token &name, std::unique_ptr<Statement> body) : name(name), body(std::move(body)) {
 
 }
