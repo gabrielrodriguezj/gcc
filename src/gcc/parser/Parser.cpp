@@ -44,9 +44,6 @@ std::unique_ptr<FunctionStmt> Parser::function() {
 std::unique_ptr<Statement> Parser::statement() {
     match(TokenName::RETURN);
     std::unique_ptr<Expression> expr = expression();
-
-
-
     match(TokenName::SEMICOLON);
     return std::make_unique<ReturnStmt>(std::move(expr));
 }
