@@ -4,3 +4,7 @@
 
 ConstantExpr :: ConstantExpr(const Token &constantValue) : value(constantValue) {
 }
+
+void ConstantExpr::accept(Visitor &v) {
+    v.visit(*this);
+}

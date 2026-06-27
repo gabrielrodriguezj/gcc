@@ -6,6 +6,7 @@
 
 #include "gcc/lexer/Lexer.hpp"
 #include "gcc/parser/Parser.hpp"
+#include "gcc/visitors/AstPrinter.hpp"
 
 std::string readFile(const std::string& filename)
 {
@@ -41,6 +42,10 @@ int main(const int argc, const char* argv[]) {
         Parser parser(lexer);
 
         ProgramAST ast = parser.parse();
+
+        AstPrinter printer(std::cout);
+        ast.accept(printer);
+
         int a = 0;
 
     }

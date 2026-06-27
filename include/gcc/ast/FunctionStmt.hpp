@@ -6,6 +6,7 @@
 class FunctionStmt: public Statement {
 public:
     FunctionStmt(Token &, std::unique_ptr<Statement>);
+    void accept(Visitor &visitor) override;
 
 private:
     Token name;

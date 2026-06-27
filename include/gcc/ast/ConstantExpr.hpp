@@ -6,7 +6,7 @@ class ConstantExpr : public Expression {
 
 public:
     ConstantExpr(const Token &);
-
+    void accept(Visitor&) override;
 private:
     Token value;
 };

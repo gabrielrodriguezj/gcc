@@ -7,6 +7,7 @@
 class ReturnStmt : public Statement {
 public:
     ReturnStmt(std::unique_ptr<Expression>);
+    void accept(Visitor &visitor) override;
 
 private:
     std::unique_ptr<Expression> expression;

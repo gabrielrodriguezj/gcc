@@ -5,3 +5,7 @@
 ProgramAST::ProgramAST(std::unique_ptr<Statement>  function):function(std::move(function)) {
 
 }
+
+void ProgramAST::accept(Visitor &visitor) {
+    visitor.visit(*this);
+}

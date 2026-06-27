@@ -1,10 +1,12 @@
 #ifndef GCC_PROGRAM_HPP
 #define GCC_PROGRAM_HPP
+#include "Expression.hpp"
 #include "Statement.hpp"
 
-class ProgramAST {
+class ProgramAST: virtual public Statement {
 public:
     ProgramAST(std::unique_ptr<Statement> );
+    void accept(Visitor&) override;
 private:
     std::unique_ptr<Statement>  function;
 };
