@@ -11,14 +11,12 @@ AstPrinter::AstPrinter(std::ostream& out, const SourceManager& sourceManager): o
 
 void AstPrinter::visit(ConstantExpr& expr) {
     out << std::string(indent - 1, '\t') << "|--- Constant" << std::endl;
-    // TODO: change stmt.getToken().length
-    out << std::string(indent - 1, '\t') << "     name: " << expr.getValue().length << std::endl;
+    out << std::string(indent - 1, '\t') << "     value: " << sourceManager.lexeme(expr.getValue()) << std::endl;
 }
 
 void AstPrinter::visit(FunctionStmt& stmt) {
     out << std::string(indent - 1, '\t') << "|--- Function" << std::endl;
-    // TODO: change stmt.getToken().length
-    out << std::string(indent - 1, '\t') << "     name: " << stmt.getToken().length << std::endl;
+    out << std::string(indent - 1, '\t') << "     name: " << sourceManager.lexeme(stmt.getToken()) << std::endl;
     out << std::string(indent - 1, '\t') << "     body: " << std::endl;
     indent++;
     stmt.getBody().accept(*this);
