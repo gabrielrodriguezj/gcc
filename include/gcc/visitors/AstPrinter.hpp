@@ -15,6 +15,7 @@ public:
 
 private:
     std::ostream& out;
+    int indent = 0;
 };
 
 #endif //GCC_ASTPRINTER_HPP

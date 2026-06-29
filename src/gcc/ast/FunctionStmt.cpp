@@ -8,3 +8,11 @@ FunctionStmt::FunctionStmt(Token &name, std::unique_ptr<Statement> body) :
 void FunctionStmt::accept(Visitor &visitor) {
     visitor.visit(*this);
 }
+
+Token FunctionStmt::getToken() const {
+    return name;
+}
+
+Statement& FunctionStmt::getBody() const {
+    return *body;
+}

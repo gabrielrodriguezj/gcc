@@ -1,17 +1,37 @@
 #include "gcc/visitors/AstPrinter.hpp"
 
+#include "gcc/ast/ConstantExpr.hpp"
+#include "gcc/ast/FunctionStmt.hpp"
+#include "gcc/ast/ProgramAST.hpp"
+#include "gcc/ast/ReturnStmt.hpp"
+
 void AstPrinter::visit(ConstantExpr& expr) {
-    out << "testing: ConstantExpr node" << std::endl;
+    out << std::string(indent - 1, '\t') << "|--- Constant" << std::endl;
+    // TODO: change stmt.getToken().length
+    out << std::string(indent - 1, '\t') << "     name: " << expr.getValue().length << std::endl;
 }
 
 void AstPrinter::visit(FunctionStmt& stmt) {
-    out << "testing: FunctionStmt node" << std::endl;
+    out << std::string(indent - 1, '\t') << "|--- Function" << std::endl;
+    // TODO: change stmt.getToken().length
+    out << std::string(indent - 1, '\t') << "     name: " << stmt.getToken().length << std::endl;
+    out << std::string(indent - 1, '\t') << "     body: " << std::endl;
+    indent++;
+    stmt.getBody().accept(*this);
+    indent--;
 }
 
 void AstPrinter::visit(ReturnStmt& stmt) {
-    out << "testing: ReturnStmt node" << std::endl;
+    out << std::string(indent - 1, '\t') << "|--- Return" << std::endl;
+    out << std::string(indent - 1, '\t') << "     Expression: " << std::endl;
+    indent++;
+    stmt.getExpression().accept(*this);
+    indent--;
 }
 
 void AstPrinter::visit(ProgramAST& stmt) {
-    out << "testing: ProgramAST node" << std::endl;
+    out << "Program: " << std::endl;
+    indent++;
+    stmt.getFunction().accept(*this);
+    indent--;
 }

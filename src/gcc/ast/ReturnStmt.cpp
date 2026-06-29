@@ -6,3 +6,7 @@ ReturnStmt :: ReturnStmt(std::unique_ptr<Expression>  expression) :
 void ReturnStmt :: accept(Visitor &visitor) {
     visitor.visit(*this);
 }
+
+Expression& ReturnStmt::getExpression() const {
+    return *expression;
+}
