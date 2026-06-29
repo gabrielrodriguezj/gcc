@@ -13,4 +13,5 @@ add_executable(gcc apps/compiler/main.cpp
         src/gcc/ast/ConstantExpr.cpp
         src/gcc/ast/ReturnStmt.cpp
         src/gcc/visitors/AstPrinter.cpp
+        src/gcc/source/SourceManager.cpp
 )

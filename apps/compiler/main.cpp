@@ -6,6 +6,7 @@
 
 #include "gcc/lexer/Lexer.hpp"
 #include "gcc/parser/Parser.hpp"
+#include "gcc/source/SourceManager.hpp"
 #include "gcc/visitors/AstPrinter.hpp"
 
 std::string readFile(const std::string& filename)
@@ -36,17 +37,22 @@ int main(const int argc, const char* argv[]) {
 
     try
     {
+        // Reading the source code and creating the source manager
         std::string sourceCode = readFile(argv[1]);
+        SourceManager source(sourceCode);
 
-        Lexer lexer(sourceCode);
+        // Creating lexer
+        Lexer lexer(source);
+
+        // Creating parser
         Parser parser(lexer);
 
+        // Parsing the code
         ProgramAST ast = parser.parse();
 
-        AstPrinter printer(std::cout);
+        // Printing the ast
+        AstPrinter printer(std::cout, source);
         ast.accept(printer);
-
-        int a = 0;
 
     }
     catch (const std::exception& e)

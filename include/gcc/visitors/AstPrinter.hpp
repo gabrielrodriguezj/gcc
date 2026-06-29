@@ -3,11 +3,12 @@
 #include <ostream>
 
 #include "Visitor.hpp"
+#include "gcc/source/SourceManager.hpp"
 
 class AstPrinter: public Visitor {
 public:
 
-    explicit AstPrinter(std::ostream& out) : out(out) {}
+    AstPrinter(std::ostream& out, const SourceManager& sourceManager);
     void visit(ConstantExpr& expr) override;
     void visit(FunctionStmt& stmt) override;
     void visit(ReturnStmt& stmt) override;
@@ -15,6 +16,7 @@ public:
 
 private:
     std::ostream& out;
+    const SourceManager& sourceManager;
     int indent = 0;
 };
 

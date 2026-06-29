@@ -3,12 +3,13 @@
 #include <cstring>
 #include <sstream>
 
-Lexer::Lexer(std::string source)
-    : source_(std::move(source)),
+Lexer::Lexer(const SourceManager& sourceManager)
+    : sourceManager(sourceManager),
       current(0),
       start(0),
       line(1)
 {
+    source_ = sourceManager.source();
 }
 
 Token Lexer::next() {

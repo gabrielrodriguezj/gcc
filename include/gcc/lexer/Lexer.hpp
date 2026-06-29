@@ -3,13 +3,15 @@
 #include <string>
 
 #include "Token.hpp"
+#include "gcc/source/SourceManager.hpp"
 
 class Lexer {
 public:
-    explicit Lexer(std::string source);
+    explicit Lexer(const SourceManager& sourceManager);
     Token next();
 
 private:
+    const SourceManager& sourceManager;
     std::string source_;
     int current;
     int start;

@@ -5,6 +5,10 @@
 #include "gcc/ast/ProgramAST.hpp"
 #include "gcc/ast/ReturnStmt.hpp"
 
+AstPrinter::AstPrinter(std::ostream& out, const SourceManager& sourceManager): out(out), sourceManager(sourceManager) {
+
+}
+
 void AstPrinter::visit(ConstantExpr& expr) {
     out << std::string(indent - 1, '\t') << "|--- Constant" << std::endl;
     // TODO: change stmt.getToken().length
