@@ -1,4 +1,4 @@
-#include "gcc/visitors/MASMCodeGenerator.hpp"
+#include "gcc/visitors/MASMx86CodeGenerator.hpp"
 
 #include "gcc/ast/ConstantExpr.hpp"
 #include "gcc/ast/FunctionStmt.hpp"
@@ -6,11 +6,11 @@
 #include "gcc/ast/ReturnStmt.hpp"
 #include "gcc/source/SourceManager.hpp"
 
-MASMCodeGenerator::MASMCodeGenerator(std::ostream& out, SourceManager& sourceManager): out_(out), sourceManager_(sourceManager) {
+MASMx86CodeGenerator::MASMx86CodeGenerator(std::ostream& out, SourceManager& sourceManager): out_(out), sourceManager_(sourceManager) {
 
 }
 
-void MASMCodeGenerator::generate(ProgramAST& program) {
+void MASMx86CodeGenerator::generate(ProgramAST& program) {
     // emit header of masm file
     emitHeader();
 
@@ -21,7 +21,7 @@ void MASMCodeGenerator::generate(ProgramAST& program) {
     emitFooter();
 }
 
-void MASMCodeGenerator::visit(ConstantExpr& expr) {
+void MASMx86CodeGenerator::visit(ConstantExpr& expr) {
     emitLine("mov eax, " + std::string(sourceManager_.lexeme(expr.getValue())) );
 
     /*
@@ -44,7 +44,7 @@ void MASMCodeGenerator::visit(ConstantExpr& expr) {
      */
 }
 
-void MASMCodeGenerator::visit(FunctionStmt& stmt) {
+void MASMx86CodeGenerator::visit(FunctionStmt& stmt) {
     auto function = std::string(sourceManager_.lexeme(stmt.getName()));
 
     emitLine(function + " PROC\n");
@@ -54,12 +54,12 @@ void MASMCodeGenerator::visit(FunctionStmt& stmt) {
     emitLine(function + " ENDP\n\n");
 }
 
-void MASMCodeGenerator::visit(ReturnStmt& stmt) {
+void MASMx86CodeGenerator::visit(ReturnStmt& stmt) {
     stmt.getExpression().accept(*this);
     emitLine("ret\n");
 }
 
-void MASMCodeGenerator::visit(ProgramAST& stmt) {
+void MASMx86CodeGenerator::visit(ProgramAST& stmt) {
     stmt.getFunction().accept(*this);
 }
 
@@ -69,7 +69,7 @@ void MASMCodeGenerator::visit(ProgramAST& stmt) {
  * std::endl slows down the compilation or generation process, as it
  * forces the hard drive to work on each line instead of by blocks.
  */
-void MASMCodeGenerator::emitHeader() {
+void MASMx86CodeGenerator::emitHeader() {
     out_ << ".386\n";
     out_ << ".model flat, stdcall\n";
     out_ << "option casemap:none\n\n";
@@ -77,11 +77,11 @@ void MASMCodeGenerator::emitHeader() {
     out_ << ".code\n\n";
 }
 
-void MASMCodeGenerator::emitFooter() const {
+void MASMx86CodeGenerator::emitFooter() const {
     out_ << "END\n";
 }
 
-void MASMCodeGenerator::emitLine(const std::string& line) {
+void MASMx86CodeGenerator::emitLine(const std::string& line) {
     out_ << "    " << line << '\n';
 }
 

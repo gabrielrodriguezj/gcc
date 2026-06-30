@@ -14,5 +14,6 @@ add_executable(gcc apps/compiler/main.cpp
         src/gcc/ast/ReturnStmt.cpp
         src/gcc/visitors/AstPrinter.cpp
         src/gcc/source/SourceManager.cpp
-        src/gcc/visitors/MASMCodeGenerator.cpp
+        src/gcc/visitors/MASMx86CodeGenerator.cpp
+        src/gcc/visitors/MASMx64CodeGenerator.cpp
 )

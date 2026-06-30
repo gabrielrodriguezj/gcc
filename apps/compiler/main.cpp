@@ -9,7 +9,7 @@
 #include "gcc/parser/Parser.hpp"
 #include "gcc/source/SourceManager.hpp"
 #include "gcc/visitors/AstPrinter.hpp"
-#include "gcc/visitors/MASMCodeGenerator.hpp"
+#include "gcc/visitors/MASMx64CodeGenerator.hpp"
 
 std::filesystem::path changeExtension(
     const std::filesystem::path& inputPath,
@@ -75,7 +75,7 @@ int main(const int argc, const char* argv[]) {
         }
 
         // Emitting masm x86 assembler
-        MASMCodeGenerator generator(out, source);
+        MASMx64CodeGenerator generator(out, source);
         generator.generate(ast);
 
     }

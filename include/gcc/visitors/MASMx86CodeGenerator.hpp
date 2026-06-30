@@ -2,14 +2,13 @@
 #define GCC_MASMGENERATOR_HPP
 
 #include <iosfwd>
-#include <string_view>
 
 #include "Visitor.hpp"
 #include "gcc/source/SourceManager.hpp"
 
-class MASMCodeGenerator : public Visitor {
+class MASMx86CodeGenerator : public Visitor {
 public:
-    explicit MASMCodeGenerator(std::ostream& out, SourceManager& sourceManager);
+    explicit MASMx86CodeGenerator(std::ostream& out, SourceManager& sourceManager);
     void generate(ProgramAST& program);
 
     void visit(ConstantExpr& expr) override;
