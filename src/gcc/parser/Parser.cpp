@@ -61,8 +61,8 @@ void Parser::match(TokenName tokenName) {
     }
 
     std::stringstream ss;
-    ss<<"Error: Found " << to_string(currentToken.name) << " token instead of "
-    << to_string(tokenName) <<". Line: " << currentToken.line << ".";
+    ss<<"Error: Found " << currentToken.toString() << " token instead of "
+    << currentToken.toString() <<". Line: " << currentToken.line << ".";
     throw std::runtime_error (ss.str());;
     //return false;
 }

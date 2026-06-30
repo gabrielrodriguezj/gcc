@@ -20,7 +20,7 @@ void AstPrinter::visit(ConstantExpr& expr) {
 
 void AstPrinter::visit(FunctionStmt& stmt) {
     out << std::string(indent - 1, '\t') << "|--- Function" << std::endl;
-    out << std::string(indent - 1, '\t') << "     name: " << sourceManager.lexeme(stmt.getToken()) << std::endl;
+    out << std::string(indent - 1, '\t') << "     name: " << sourceManager.lexeme(stmt.getName()) << std::endl;
     out << std::string(indent - 1, '\t') << "     body: " << std::endl;
     indent++;
     stmt.getBody().accept(*this);

@@ -9,7 +9,7 @@ void FunctionStmt::accept(Visitor &visitor) {
     visitor.visit(*this);
 }
 
-Token FunctionStmt::getToken() const {
+Token FunctionStmt::getName() const {
     return name;
 }
 

@@ -8,7 +8,7 @@ public:
     FunctionStmt(Token &, std::unique_ptr<Statement>);
     void accept(Visitor &visitor) override;
 
-    Token getToken() const;
+    Token getName() const;
     Statement& getBody() const;
 
 private:

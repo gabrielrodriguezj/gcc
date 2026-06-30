@@ -8,6 +8,7 @@
 #include "gcc/parser/Parser.hpp"
 #include "gcc/source/SourceManager.hpp"
 #include "gcc/visitors/AstPrinter.hpp"
+#include "gcc/visitors/MASMCodeGenerator.hpp"
 
 std::string readFile(const std::string& filename)
 {
@@ -53,6 +54,10 @@ int main(const int argc, const char* argv[]) {
         // Printing the ast
         AstPrinter printer(std::cout, source);
         printer.print(ast);
+
+        // Emitting masm x86 assembler
+        MASMCodeGenerator generator(std::cout, source);
+        generator.generate(ast);
 
     }
     catch (const std::exception& e)
