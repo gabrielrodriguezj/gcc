@@ -9,6 +9,8 @@ class AstPrinter: public Visitor {
 public:
 
     AstPrinter(std::ostream& out, const SourceManager& sourceManager);
+    void print(ProgramAST& stmt);
+
     void visit(ConstantExpr& expr) override;
     void visit(FunctionStmt& stmt) override;
     void visit(ReturnStmt& stmt) override;

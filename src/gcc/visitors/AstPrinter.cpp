@@ -9,6 +9,10 @@ AstPrinter::AstPrinter(std::ostream& out, const SourceManager& sourceManager): o
 
 }
 
+void AstPrinter::print(ProgramAST &stmt) {
+    stmt.accept(*this);
+}
+
 void AstPrinter::visit(ConstantExpr& expr) {
     out << std::string(indent - 1, '\t') << "|--- Constant" << std::endl;
     out << std::string(indent - 1, '\t') << "     value: " << sourceManager.lexeme(expr.getValue()) << std::endl;

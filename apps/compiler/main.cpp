@@ -52,7 +52,7 @@ int main(const int argc, const char* argv[]) {
 
         // Printing the ast
         AstPrinter printer(std::cout, source);
-        ast.accept(printer);
+        printer.print(ast);
 
     }
     catch (const std::exception& e)
