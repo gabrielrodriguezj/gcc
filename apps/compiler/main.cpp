@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,6 +10,15 @@
 #include "gcc/source/SourceManager.hpp"
 #include "gcc/visitors/AstPrinter.hpp"
 #include "gcc/visitors/MASMCodeGenerator.hpp"
+
+std::filesystem::path changeExtension(
+    const std::filesystem::path& inputPath,
+    const std::string& newExtension)
+{
+    std::filesystem::path output = inputPath;
+    output.replace_extension(newExtension);
+    return output;
+}
 
 std::string readFile(const std::string& filename)
 {
@@ -38,8 +48,10 @@ int main(const int argc, const char* argv[]) {
 
     try
     {
+        std::filesystem::path input = argv[1];
+
         // Reading the source code and creating the source manager
-        std::string sourceCode = readFile(argv[1]);
+        std::string sourceCode = readFile(input.string());
         SourceManager source(sourceCode);
 
         // Creating lexer
@@ -55,8 +67,15 @@ int main(const int argc, const char* argv[]) {
         AstPrinter printer(std::cout, source);
         printer.print(ast);
 
+        // ofstream instance for saving the asm file.
+        auto outputFile = changeExtension(input, ".asm");
+        std::ofstream out(outputFile, std::ios::out | std::ios::trunc);
+        if (!out.is_open()) {
+            throw std::runtime_error("The output file could not be opened.");
+        }
+
         // Emitting masm x86 assembler
-        MASMCodeGenerator generator(std::cout, source);
+        MASMCodeGenerator generator(out, source);
         generator.generate(ast);
 
     }
