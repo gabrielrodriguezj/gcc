@@ -71,3 +71,6 @@ Testing/
 # CLion
 .idea/
 cmake*/
+
+# asm files
+examples/*.asm
