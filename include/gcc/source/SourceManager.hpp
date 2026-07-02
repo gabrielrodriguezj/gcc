@@ -1,5 +1,6 @@
 #ifndef GCC_SOURCEMANAGER_HPP
 #define GCC_SOURCEMANAGER_HPP
+#include <filesystem>
 #include <string>
 #include <string_view>
 
@@ -7,16 +8,17 @@
 
 class SourceManager {
 public:
-
-    explicit SourceManager(std::string source)
-        : source_(std::move(source))
-    {}
-
+    explicit SourceManager(std::filesystem::path );
+    explicit SourceManager(std::string);
     std::string_view lexeme(const Token& token) const;
-    const std::string& source() const;
+    std::string_view source() const;
+    std::string filename() const;
 
 private:
+    std::filesystem::path path_;
     std::string source_;
+
+    std::string readFile(const std::filesystem::path&) const;
 };
 
 #endif //GCC_SOURCEMANAGER_HPP

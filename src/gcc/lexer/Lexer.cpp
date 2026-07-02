@@ -101,7 +101,8 @@ void Lexer::skipWhitespace() {
 Token Lexer::identifier() {
     while (isalpha(peek()) || isdigit(peek())) advance();
 
-    std::string lexem = source_.substr(start, current - start);
+    std::string_view lexem = source_.substr(start, current - start);
+
     TokenName tokenName = identifierType(lexem);
 
     if(tokenName == TokenName::IDENTIFIER){
@@ -110,7 +111,7 @@ Token Lexer::identifier() {
     return makeToken(tokenName);
 }
 
-TokenName Lexer::identifierType(const std::string& lexeme){
+TokenName Lexer::identifierType(const std::string_view lexeme){
     if(lexeme == "else") return TokenName::ELSE;
     if(lexeme == "false") return TokenName::FALSE;
     if(lexeme == "for") return TokenName::FOR;

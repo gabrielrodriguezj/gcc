@@ -12,14 +12,14 @@ public:
 
 private:
     const SourceManager& sourceManager;
-    std::string source_;
+    std::string_view source_;
     int current;
     int start;
     int line;
 
     void skipWhitespace();
     Token identifier();
-    static TokenName identifierType(const std::string&);
+    static TokenName identifierType(std::string_view);
     Token number();
     Token string();
 

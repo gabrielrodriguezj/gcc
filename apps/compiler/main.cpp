@@ -20,21 +20,6 @@ std::filesystem::path changeExtension(
     return output;
 }
 
-std::string readFile(const std::string& filename)
-{
-    std::ifstream file(filename);
-
-    if (!file)
-    {
-        throw std::runtime_error("Could not open file: " + filename);
-    }
-
-    std::stringstream buffer;
-    buffer << file.rdbuf();
-
-    return buffer.str();
-}
-
 int main(const int argc, const char* argv[]) {
     if(argc == 1) {
         std::cerr << "Error: no input files";
@@ -50,9 +35,8 @@ int main(const int argc, const char* argv[]) {
     {
         std::filesystem::path input = argv[1];
 
-        // Reading the source code and creating the source manager
-        std::string sourceCode = readFile(input.string());
-        SourceManager source(sourceCode);
+        // Creating the source manager
+        SourceManager source(input);
 
         // Creating lexer
         Lexer lexer(source);
