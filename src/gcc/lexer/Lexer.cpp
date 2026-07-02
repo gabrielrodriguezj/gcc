@@ -4,17 +4,17 @@
 #include <sstream>
 
 Lexer::Lexer(const SourceManager& sourceManager)
-    : sourceManager(sourceManager),
-      current(0),
-      start(0),
-      line(1)
+    : sourceManager_(sourceManager),
+      current_(0),
+      start_(0),
+      line_(1)
 {
     source_ = sourceManager.source();
 }
 
 Token Lexer::next() {
     skipWhitespace();
-    start = current;
+    start_ = current_;
 
     if (isAtEnd()) return makeToken(TokenName::END);
 
@@ -50,7 +50,7 @@ Token Lexer::next() {
         case '"': return string();
         default:
             std::stringstream ss;
-            ss<<"Error: character '" << peek() << "' not valid. Line: " << line;
+            ss<<"Error: character '" << peek() << "' not valid. Line: " << line_;
             throw std::runtime_error (ss.str());;
     }
 
@@ -65,7 +65,7 @@ void Lexer::skipWhitespace() {
                 advance();
                 break;
             case '\n':
-                line++;
+                line_++;
                 advance();
                 break;
             case '/':
@@ -101,7 +101,7 @@ void Lexer::skipWhitespace() {
 Token Lexer::identifier() {
     while (isalpha(peek()) || isdigit(peek())) advance();
 
-    std::string_view lexem = source_.substr(start, current - start);
+    std::string_view lexem = source_.substr(start_, current_ - start_);
 
     TokenName tokenName = identifierType(lexem);
 
@@ -149,13 +149,13 @@ Token Lexer::number() {
 
 Token Lexer::string() {
     while (peek() != '"' && !isAtEnd()) {
-        if (peek() == '\n') line++;
+        if (peek() == '\n') line_++;
         advance();
     }
     if (isAtEnd()) {
         //return new Token(TokenName::ERROR, line);
         std::stringstream ss;
-        ss << "Error: The \" that is missing. Line: " << line;
+        ss << "Error: The \" that is missing. Line: " << line_;
         throw std::runtime_error(ss.str());
     }
 
@@ -169,38 +169,38 @@ Token Lexer::string() {
 
 bool Lexer::match(char expected) {
     if (isAtEnd()) return false;
-    if (source_.at(current) != expected) return false;
-    current++;
+    if (source_.at(current_) != expected) return false;
+    current_++;
     return true;
 }
 
 bool Lexer::isAtEnd() const {
-    if (source_.length() <= current) return true;
-    return source_.at(current) == '\0';
+    if (source_.length() <= current_) return true;
+    return source_.at(current_) == '\0';
 }
 
 char Lexer::peek() const {
     if (isAtEnd()) return '\0';
-    return source_.at(current);
+    return source_.at(current_);
 }
 
 char Lexer::advance() {
-    current++;
-    return source_.at(current-1);
+    current_++;
+    return source_.at(current_-1);
 }
 
 char Lexer::peekNext() const {
     if (isAtEnd()) return '\0';
-    return source_.at(current+1);
+    return source_.at(current_+1);
 }
 
 
 Token Lexer::makeToken(TokenName name) const {
     Token token;
     token.name = name;
-    token.offset = start;
-    token.length = current - start;
-    token.line = line;
+    token.offset = start_;
+    token.length = current_ - start_;
+    token.line = line_;
 
     return token;
 }

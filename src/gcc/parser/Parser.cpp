@@ -6,20 +6,20 @@
 #include "gcc/ast/ConstantExpr.hpp"
 #include "gcc/ast/ReturnStmt.hpp"
 
-Parser::Parser(Lexer &lexer) : lexer(lexer) {
+Parser::Parser(Lexer &lexer) : lexer_(lexer) {
 
 }
 
 ProgramAST Parser::parse() {
-    currentToken = lexer.next();
+    currentToken_ = lexer_.next();
     ProgramAST ast = program();
 
-    if (currentToken.name == TokenName::END) {
+    if (currentToken_.name == TokenName::END) {
         return ast;
     }
 
     std::stringstream ss;
-    ss<<"Error: Found. Line: " << currentToken.line << ".";
+    ss<<"Error: Found. Line: " << currentToken_.line << ".";
     throw std::runtime_error (ss.str());;
 }
 
@@ -30,7 +30,7 @@ ProgramAST Parser::program() {
 
 std::unique_ptr<FunctionStmt> Parser::function() {
     match(TokenName::INT);
-    Token name = currentToken;
+    Token name = currentToken_;
     match(TokenName::IDENTIFIER);
     match(TokenName::LEFT_PAREN);
     match(TokenName::VOID);
@@ -49,20 +49,20 @@ std::unique_ptr<Statement> Parser::statement() {
 }
 
 std::unique_ptr<Expression> Parser::expression() {
-    Token token = currentToken;
+    Token token = currentToken_;
     match(TokenName::NUMBER);
     return std::make_unique<ConstantExpr>(token);
 }
 
 void Parser::match(TokenName tokenName) {
-    if (tokenName == currentToken.name) {
-        currentToken = lexer.next();
+    if (tokenName == currentToken_.name) {
+        currentToken_ = lexer_.next();
         return;
     }
 
     std::stringstream ss;
-    ss<<"Error: Found " << currentToken.toString() << " token instead of "
-    << currentToken.toString() <<". Line: " << currentToken.line << ".";
+    ss<<"Error: Found " << currentToken_.toString() << " token instead of "
+    << currentToken_.toString() <<". Line: " << currentToken_.line << ".";
     throw std::runtime_error (ss.str());;
     //return false;
 }

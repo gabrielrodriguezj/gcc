@@ -15,8 +15,8 @@ public:
     ProgramAST parse();
 
 private:
-    Lexer lexer;
-    Token currentToken;
+    Lexer lexer_;
+    Token currentToken_;
 
     ProgramAST program();
     std::unique_ptr<FunctionStmt> function();

@@ -17,9 +17,9 @@ public:
     void visit(ProgramAST& stmt) override;
 
 private:
-    std::ostream& out;
-    const SourceManager& sourceManager;
-    int indent = 0;
+    std::ostream& out_;
+    const SourceManager& sourceManager_;
+    int indent_ = 0;
 };
 
 #endif //GCC_ASTPRINTER_HPP

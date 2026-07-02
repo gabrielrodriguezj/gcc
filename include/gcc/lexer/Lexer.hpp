@@ -11,11 +11,11 @@ public:
     Token next();
 
 private:
-    const SourceManager& sourceManager;
+    const SourceManager& sourceManager_;
     std::string_view source_;
-    int current;
-    int start;
-    int line;
+    int current_;
+    int start_;
+    int line_;
 
     void skipWhitespace();
     Token identifier();

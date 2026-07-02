@@ -3,16 +3,16 @@
 #include "gcc/ast/Statement.hpp"
 
 FunctionStmt::FunctionStmt(Token &name, std::unique_ptr<Statement> body) :
-    name(name), body(std::move(body)) {}
+    name_(name), body_(std::move(body)) {}
 
 void FunctionStmt::accept(Visitor &visitor) {
     visitor.visit(*this);
 }
 
 Token FunctionStmt::getName() const {
-    return name;
+    return name_;
 }
 
 Statement& FunctionStmt::getBody() const {
-    return *body;
+    return *body_;
 }

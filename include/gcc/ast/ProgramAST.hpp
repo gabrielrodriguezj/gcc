@@ -10,7 +10,7 @@ public:
 
     Statement& getFunction();
 private:
-    std::unique_ptr<Statement> function;
+    std::unique_ptr<Statement> function_;
 };
 
 #endif //GCC_PROGRAM_HPP

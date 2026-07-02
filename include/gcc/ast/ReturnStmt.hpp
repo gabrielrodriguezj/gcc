@@ -11,7 +11,7 @@ public:
     Expression& getExpression() const;
 
 private:
-    std::unique_ptr<Expression> expression;
+    std::unique_ptr<Expression> expression_;
 };
 
 #endif //GCC_RETURNSTMT_HPP

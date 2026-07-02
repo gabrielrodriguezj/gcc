@@ -2,7 +2,7 @@
 
 #include "gcc/lexer/Token.hpp"
 
-ConstantExpr :: ConstantExpr(const Token &constantValue) : value(constantValue) {
+ConstantExpr :: ConstantExpr(const Token &constantValue) : value_(constantValue) {
 }
 
 void ConstantExpr::accept(Visitor &v) {
@@ -10,5 +10,5 @@ void ConstantExpr::accept(Visitor &v) {
 }
 
 Token ConstantExpr::getValue() {
-    return value;
+    return value_;
 }

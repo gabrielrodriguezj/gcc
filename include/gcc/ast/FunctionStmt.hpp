@@ -12,8 +12,8 @@ public:
     Statement& getBody() const;
 
 private:
-    Token name;
-    std::unique_ptr<Statement> body;
+    Token name_;
+    std::unique_ptr<Statement> body_;
 };
 
 #endif //GCC_FUNCTIONNODE_HPP

@@ -10,7 +10,7 @@ public:
     Token getValue();
 
 private:
-    Token value;
+    Token value_;
 };
 
 #endif //GCC_CONSTANTEXPR_HPP

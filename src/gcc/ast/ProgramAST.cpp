@@ -5,7 +5,7 @@
 #include "gcc/ast/FunctionStmt.hpp"
 #include "gcc/ast/Statement.hpp"
 
-ProgramAST::ProgramAST(std::unique_ptr<Statement>  function):function(std::move(function)) {
+ProgramAST::ProgramAST(std::unique_ptr<Statement>  function):function_(std::move(function)) {
 
 }
 
@@ -14,5 +14,5 @@ void ProgramAST::accept(Visitor &visitor) {
 }
 
 Statement& ProgramAST::getFunction() {
-    return *this->function;
+    return *this->function_;
 }
