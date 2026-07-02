@@ -8,6 +8,8 @@
 
 class Statement {
 public:
+    virtual ~Statement() = default;
+
     virtual void accept(Visitor& visitor) = 0;
 };
 

@@ -8,6 +8,7 @@
 
 class Expression {
 public:
+    virtual ~Expression() = default;
     virtual void accept(Visitor& visitor) = 0;
 };
 
