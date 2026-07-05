@@ -16,4 +16,5 @@ add_executable(gcc apps/compiler/main.cpp
         src/gcc/source/SourceManager.cpp
         src/gcc/visitors/MASMx86CodeGenerator.cpp
         src/gcc/visitors/MASMx64CodeGenerator.cpp
+        src/gcc/ast/UnaryExpr.cpp
 )

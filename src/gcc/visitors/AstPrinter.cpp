@@ -18,6 +18,15 @@ void AstPrinter::visit(ConstantExpr& expr) {
     out_ << std::string(indent_ - 1, '\t') << "     value: " << sourceManager_.lexeme(expr.getValue()) << std::endl;
 }
 
+void AstPrinter::visit(UnaryExpr& expr) {
+    out_ << std::string(indent_ - 1, '\t') << "|--- Unary" << std::endl;
+    out_ << std::string(indent_ - 1, '\t') << "     operator: " << sourceManager_.lexeme(expr.getOperator()) << std::endl;
+    out_ << std::string(indent_ - 1, '\t') << "     Expression: " << std::endl;
+    indent_++;
+    expr.getExpression().accept(*this);
+    indent_--;
+}
+
 void AstPrinter::visit(FunctionStmt& stmt) {
     out_ << std::string(indent_ - 1, '\t') << "|--- Function" << std::endl;
     out_ << std::string(indent_ - 1, '\t') << "     name: " << sourceManager_.lexeme(stmt.getName()) << std::endl;

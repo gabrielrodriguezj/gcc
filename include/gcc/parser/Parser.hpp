@@ -22,6 +22,7 @@ private:
     std::unique_ptr<FunctionStmt> function();
     std::unique_ptr<Statement> statement();
     std::unique_ptr<Expression> expression();
+    std::unique_ptr<Expression> unary();
 
     void match(TokenName);
 };
