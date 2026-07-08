@@ -16,4 +16,10 @@ add_executable(gcc apps/compiler/main.cpp
         src/gcc/source/SourceManager.cpp
         src/gcc/visitors/MASMx86CodeGenerator.cpp
         src/gcc/visitors/MASMx64CodeGenerator.cpp
+        src/gcc/driver/CompilerDriver.cpp
+        src/gcc/pipeline/Pipeline.cpp
+        src/gcc/driver/CommandLineParser.cpp
+        src/gcc/driver/CompilerContext.cpp
+        src/gcc/pipeline/LexerPass.cpp
+        src/gcc/pipeline/ParserPass.cpp
 )

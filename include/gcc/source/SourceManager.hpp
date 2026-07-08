@@ -45,7 +45,7 @@
 
 class SourceManager {
 public:
-    explicit SourceManager(std::filesystem::path );
+    explicit SourceManager(std::filesystem::path);
     explicit SourceManager(std::string);
 
     std::filesystem::path path() const noexcept;

@@ -1,15 +1,11 @@
-#include <filesystem>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <stdexcept>
+#include "gcc/driver/CompilerDriver.hpp"
 
-#include "gcc/lexer/Lexer.hpp"
-#include "gcc/parser/Parser.hpp"
-#include "gcc/source/SourceManager.hpp"
-#include "gcc/visitors/AstPrinter.hpp"
-#include "gcc/visitors/MASMx64CodeGenerator.hpp"
+int main(const int argc, char **argv) {
+    CompilerDriver compiler;
+    return compiler.run(argc, argv);
+}
+
+/*
 
 std::filesystem::path changeExtension(
     const std::filesystem::path& inputPath,
@@ -20,8 +16,7 @@ std::filesystem::path changeExtension(
     return output;
 }
 
-int main(const int argc, const char* argv[]) {
-    if(argc == 1) {
+if(argc == 1) {
         std::cerr << "Error: no input files";
         exit(64);
     }
@@ -68,6 +63,4 @@ int main(const int argc, const char* argv[]) {
         std::cerr << e.what() << std::endl;
         return -1;
     }
-
-    return 0;
-}
+ */
