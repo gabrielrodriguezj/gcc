@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "../../../include/gcc/diagnostics/consumers/ConsoleDiagnosticConsumer.hpp"
-#include "../../../include/gcc/diagnostics/formatters/PlainDiagnosticFormatter.hpp"
+#include "gcc/diagnostics/consumers/ConsoleDiagnosticConsumer.hpp"
+#include "gcc/diagnostics/formatters/PlainDiagnosticFormatter.hpp"
 #include "gcc/driver/CommandLineParser.hpp"
 #include "gcc/driver/CompilerContext.hpp"
 #include "gcc/pipeline/LexerPass.hpp"
