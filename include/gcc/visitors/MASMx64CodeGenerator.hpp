@@ -12,6 +12,7 @@ public:
     void generate(ProgramAST& program);
 
     void visit(ConstantExpr& expr) override;
+    void visit(UnaryExpr& expr) override;
     void visit(FunctionStmt& stmt) override;
     void visit(ReturnStmt& stmt) override;
     void visit(ProgramAST& stmt) override;

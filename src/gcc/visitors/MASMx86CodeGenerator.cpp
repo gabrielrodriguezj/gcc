@@ -44,6 +44,10 @@ void MASMx86CodeGenerator::visit(ConstantExpr& expr) {
      */
 }
 
+void MASMx86CodeGenerator::visit(UnaryExpr& expr) {
+    emitLine("PENDING VISIT_UNARY_EXPR");
+}
+
 void MASMx86CodeGenerator::visit(FunctionStmt& stmt) {
     auto function = std::string(sourceManager_.lexeme(stmt.getName()));
 

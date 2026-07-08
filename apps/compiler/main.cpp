@@ -46,6 +46,7 @@ if(argc == 1) {
         AstPrinter printer(std::cout, source);
         printer.print(ast);
 
+        /*
         // ofstream instance for saving the asm file.
         auto outputFile = changeExtension(input, ".asm");
         std::ofstream out(outputFile, std::ios::out | std::ios::trunc);
@@ -56,6 +57,7 @@ if(argc == 1) {
         // Emitting masm x86 assembler
         MASMx64CodeGenerator generator(out, source);
         generator.generate(ast);
+        */
 
     }
     catch (const std::exception& e)

@@ -1,6 +1,7 @@
 <program> ::= <function>
 <function> ::= "int" <identifier> "(" "void" ")" "{" <statement> "}"
 <statement> ::= "return" <expression> ";"
-<expression> ::= <int>
+<expression> ::= <int> | <unop> <expression> | "(" <expression> ")"
+<unop> ::= "-" | "~"
 <identifier> ::= ? An identifier token ?
 <int> ::= ? A constant token ?

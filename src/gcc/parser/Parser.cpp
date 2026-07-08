@@ -5,6 +5,7 @@
 
 #include "gcc/ast/ConstantExpr.hpp"
 #include "gcc/ast/ReturnStmt.hpp"
+#include "gcc/ast/UnaryExpr.hpp"
 
 Parser::Parser(Lexer &lexer) : lexer_(lexer) {
 
@@ -50,8 +51,41 @@ std::unique_ptr<Statement> Parser::statement() {
 
 std::unique_ptr<Expression> Parser::expression() {
     Token token = currentToken_;
-    match(TokenName::NUMBER);
-    return std::make_unique<ConstantExpr>(token);
+    if (currentToken_.name == TokenName::NUMBER) {
+        match(TokenName::NUMBER);
+        return std::make_unique<ConstantExpr>(token);
+    }
+    else if (currentToken_.name == TokenName::BITWISE_COMPLEMENT ||
+        currentToken_.name == TokenName::MINUS) {
+        return unary();
+    }
+    else if (currentToken_.name == TokenName::LEFT_PAREN) {
+        match(TokenName::LEFT_PAREN);
+        std::unique_ptr<Expression> innerExp = expression();
+        match(TokenName::RIGHT_PAREN);
+        return innerExp;
+    }
+
+    std::stringstream ss;
+    ss << "Malformed expression. Line: " << currentToken_.line << ".";
+    throw std::runtime_error (ss.str());
+}
+
+std::unique_ptr<Expression> Parser::unary() {
+    Token token = currentToken_;
+    std::unique_ptr<Expression> expr;
+    if (currentToken_.name == TokenName::BITWISE_COMPLEMENT) {
+        match(TokenName::BITWISE_COMPLEMENT);
+        expr = expression();
+    }
+    else if (currentToken_.name == TokenName::MINUS) {
+        match(TokenName::MINUS);
+        expr = expression();
+    }
+
+    return std::make_unique<UnaryExpr>(token, std::move(expr));
+
+
 }
 
 void Parser::match(TokenName tokenName) {

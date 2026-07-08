@@ -22,4 +22,5 @@ add_executable(gcc apps/compiler/main.cpp
         src/gcc/driver/CompilerContext.cpp
         src/gcc/pipeline/LexerPass.cpp
         src/gcc/pipeline/ParserPass.cpp
+        src/gcc/ast/UnaryExpr.cpp
 )

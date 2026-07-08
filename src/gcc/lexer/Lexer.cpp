@@ -31,10 +31,13 @@ Token Lexer::next() {
         case ';': return makeToken(TokenName::SEMICOLON);
         case ',': return makeToken(TokenName::COMMA);
         case '.': return makeToken(TokenName::DOT);
-        case '-': return makeToken(TokenName::MINUS);
         case '+': return makeToken(TokenName::PLUS);
         case '/': return makeToken(TokenName::SLASH);
         case '*': return makeToken(TokenName::STAR);
+        case '~': return makeToken(TokenName::BITWISE_COMPLEMENT);
+        case '-':
+            return makeToken(
+                    match('-') ? TokenName::MINUS_MINUS : TokenName::MINUS);
         case '!':
             return makeToken(
                     match('=') ? TokenName::BANG_EQUAL : TokenName::BANG);

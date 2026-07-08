@@ -3,6 +3,7 @@
 #include <ostream>
 
 #include "Visitor.hpp"
+#include "gcc/ast/UnaryExpr.hpp"
 #include "gcc/source/SourceManager.hpp"
 
 class AstPrinter: public Visitor {
@@ -12,6 +13,7 @@ public:
     void print(ProgramAST& stmt);
 
     void visit(ConstantExpr& expr) override;
+    void visit(UnaryExpr& stmt) override;
     void visit(FunctionStmt& stmt) override;
     void visit(ReturnStmt& stmt) override;
     void visit(ProgramAST& stmt) override;
