@@ -23,4 +23,7 @@ add_executable(gcc apps/compiler/main.cpp
         src/gcc/pipeline/LexerPass.cpp
         src/gcc/pipeline/ParserPass.cpp
         src/gcc/ast/UnaryExpr.cpp
+        src/gcc/diagnostics/DiagnosticEngine.cpp
+        src/gcc/diagnostics/consumers/ConsoleDiagnosticConsumer.cpp
+        src/gcc/diagnostics/formatters/PlainDiagnosticFormatter.cpp
 )

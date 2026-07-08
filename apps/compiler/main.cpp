@@ -57,7 +57,6 @@ if(argc == 1) {
         // Emitting masm x86 assembler
         MASMx64CodeGenerator generator(out, source);
         generator.generate(ast);
-        */
 
     }
     catch (const std::exception& e)

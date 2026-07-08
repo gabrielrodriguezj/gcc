@@ -1,7 +1,13 @@
 #include "gcc/driver/CompilerContext.hpp"
 
-CompilerContext::CompilerContext(const CompilerOptions options, std::unique_ptr<SourceManager> sourceManager):
-    options_(options), sourceManager_(std::move(sourceManager)) {
+CompilerContext::CompilerContext(
+    const CompilerOptions &options,
+    std::unique_ptr<SourceManager> sourceManager,
+    std::unique_ptr<DiagnosticEngine> diagnosticEngine):
+        options_(options),
+        sourceManager_(std::move(sourceManager)),
+        diagnostic_(std::move(diagnosticEngine)){
+
 }
 
 CompilerOptions& CompilerContext::options() {
@@ -10,6 +16,10 @@ CompilerOptions& CompilerContext::options() {
 
 SourceManager* CompilerContext::sourceManager() const {
     return sourceManager_.get();
+}
+
+DiagnosticEngine* CompilerContext::diagnosticEngine() const {
+    return diagnostic_.get();
 }
 
 ProgramAST* CompilerContext::ast() const {

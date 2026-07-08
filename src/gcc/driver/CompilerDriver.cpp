@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../../../include/gcc/diagnostics/consumers/ConsoleDiagnosticConsumer.hpp"
+#include "../../../include/gcc/diagnostics/formatters/PlainDiagnosticFormatter.hpp"
 #include "gcc/driver/CommandLineParser.hpp"
 #include "gcc/driver/CompilerContext.hpp"
 #include "gcc/pipeline/LexerPass.hpp"
@@ -20,8 +22,16 @@ int CompilerDriver::run(int argc, char **argv) {
         // Creating the source manager
         auto sourceManager = std::make_unique<SourceManager>(options.inputFile);
 
+        // Creating the diagnostics engine
+        auto formatter = std::make_unique<PlainDiagnosticFormatter>(*sourceManager);
+        auto consumer = std::make_unique<ConsoleDiagnosticConsumer>(*formatter);
+        auto diagnosticEngine = std::make_unique<DiagnosticEngine>(*consumer);
+
         // Creating the Compiler Context
-        CompilerContext context(options, (std::move(sourceManager)));
+        CompilerContext context(
+            options,
+            (std::move(sourceManager)),
+            (std::move(diagnosticEngine)));
 
         const Pipeline pipeline = buildPipeline((options));
 
