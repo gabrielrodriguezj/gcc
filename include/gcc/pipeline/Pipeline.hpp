@@ -2,7 +2,7 @@
 #define GCC_PIPELINE_HPP
 #include <memory>
 
-#include "../driver/CompilerContext.hpp"
+#include "../core/CompilerContext.hpp"
 #include "Pass.hpp"
 
 class Pipeline {

@@ -3,6 +3,7 @@
 #include "gcc/source/SourceManager.hpp"
 
 #include <algorithm>
+#include <cassert>
 #include <fstream>
 
 #include "gcc/lexer/Token.hpp"
@@ -61,6 +62,10 @@ bool SourceManager::isValidOffset(std::size_t offset) const noexcept {
  * the corresponding line and column numbers.
  */
 SourceLocation SourceManager::location(std::size_t offset) const {
+
+    assert(!lineOffsets_.empty());
+    assert(lineOffsets_.front() == 0);
+    assert(std::is_sorted(lineOffsets_.begin(), lineOffsets_.end()));
 
     if (offset > source_.size()) {
         offset = source_.size();

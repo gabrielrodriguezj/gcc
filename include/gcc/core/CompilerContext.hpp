@@ -1,6 +1,6 @@
 #ifndef GCC_COMPILERCONTEXT_HPP
 #define GCC_COMPILERCONTEXT_HPP
-#include "CompilerOptions.hpp"
+#include "../driver/CompilerOptions.hpp"
 #include "gcc/ast/ProgramAST.hpp"
 #include "gcc/diagnostics/DiagnosticEngine.hpp"
 #include "gcc/source/SourceManager.hpp"
@@ -8,19 +8,20 @@
 class CompilerContext {
 public:
     explicit CompilerContext(
-        const CompilerOptions &,
-        std::unique_ptr<SourceManager>,
-        std::unique_ptr<DiagnosticEngine>);
+        const CompilerOptions&,
+        SourceManager&,
+        DiagnosticEngine&);
+
     CompilerOptions& options();
-    SourceManager* sourceManager() const;
-    DiagnosticEngine* diagnosticEngine() const;
+    SourceManager& sourceManager();
+    DiagnosticEngine& diagnosticEngine();
     ProgramAST* ast() const;
     void setAST(std::unique_ptr<ProgramAST> ast);
 
 private:
     CompilerOptions options_;
-    std::unique_ptr<SourceManager> sourceManager_;
-    std::unique_ptr<DiagnosticEngine> diagnostic_;
+    SourceManager& sourceManager_;
+    DiagnosticEngine& diagnostic_;
     std::unique_ptr<ProgramAST> ast_;
 
     // Other options:

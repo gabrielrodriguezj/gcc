@@ -1,10 +1,11 @@
 #include "../../../include/gcc/lexer/Lexer.hpp"
 
 #include <cstring>
+#include <iostream>
 #include <sstream>
 
-Lexer::Lexer(const SourceManager& sourceManager)
-    : sourceManager_(sourceManager),
+Lexer::Lexer(const SourceManager& sourceManager, DiagnosticEngine& diagnosticEngine )
+    : sourceManager_(sourceManager), diagnostics_(diagnosticEngine),
       current_(0),
       start_(0),
       line_(1)
@@ -52,9 +53,19 @@ Token Lexer::next() {
                     match('=') ? TokenName::GREATER_EQUAL : TokenName::GREATER);
         case '"': return string();
         default:
-            std::stringstream ss;
-            ss<<"Error: character '" << peek() << "' not valid. Line: " << line_;
-            throw std::runtime_error (ss.str());;
+            // Adding the error to diagnostic engine
+            SourceLocation location = sourceManager_.location(start_);
+            std::string message = std::string("Unexpected character: ") + c;
+            //message.push_back(c);
+
+            std::cerr << "[lexer] engine = " << &diagnostics_
+             << ", errors = " << diagnostics_.errorCount()
+            << '\n';
+
+            diagnostics_.error(location, std::move(message));
+
+            // Ignorar el carácter inválido y continuar.
+            return next();
     }
 
 }

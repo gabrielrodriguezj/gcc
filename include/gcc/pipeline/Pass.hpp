@@ -1,6 +1,6 @@
 #ifndef GCC_PASS_HPP
 #define GCC_PASS_HPP
-#include "gcc/driver/CompilerContext.hpp"
+#include "../core/CompilerContext.hpp"
 
 class Pass {
 public:

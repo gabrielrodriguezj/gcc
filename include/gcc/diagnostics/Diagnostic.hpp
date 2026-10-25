@@ -11,6 +11,15 @@ enum class DiagnosticSeverity
     Error,
 };
 
+/**
+ * Immediate: It sends the diagnostic to the consumer immediately (Eager reporting).
+ * Deferred: It retains the diagnostic until flush() is invoked. (Lazy reporting)
+ */
+enum class DiagnosticEmissionMode {
+    Immediate,
+    Deferred
+};
+
 class Diagnostic
 {
 public:

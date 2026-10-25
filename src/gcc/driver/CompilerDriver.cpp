@@ -5,7 +5,7 @@
 #include "gcc/diagnostics/consumers/ConsoleDiagnosticConsumer.hpp"
 #include "gcc/diagnostics/formatters/PlainDiagnosticFormatter.hpp"
 #include "gcc/driver/CommandLineParser.hpp"
-#include "gcc/driver/CompilerContext.hpp"
+#include "../../../include/gcc/core/CompilerContext.hpp"
 #include "gcc/pipeline/LexerPass.hpp"
 #include "gcc/pipeline/ParserPass.hpp"
 #include "gcc/pipeline/Pipeline.hpp"
@@ -16,8 +16,8 @@ int CompilerDriver::run(int argc, char **argv) {
 
     try {
         // Parsing the arguments
-        CommandLineParser parser;
-        CompilerOptions options = parser.parse(argc, argv);
+        CommandLineParser clParser;
+        CompilerOptions options = clParser.parse(argc, argv);
 
         // Creating the source manager
         auto sourceManager = std::make_unique<SourceManager>(options.inputFile);
@@ -25,17 +25,17 @@ int CompilerDriver::run(int argc, char **argv) {
         // Creating the diagnostics engine
         auto formatter = std::make_unique<PlainDiagnosticFormatter>(*sourceManager);
         auto consumer = std::make_unique<ConsoleDiagnosticConsumer>(*formatter);
-        auto diagnosticEngine = std::make_unique<DiagnosticEngine>(*consumer);
+        auto diagnosticEngine = std::make_unique<DiagnosticEngine>(*consumer, DiagnosticEmissionMode::Deferred);
 
         // Creating the Compiler Context
         CompilerContext context(
             options,
-            (std::move(sourceManager)),
-            (std::move(diagnosticEngine)));
+            *sourceManager.get(),
+            *diagnosticEngine.get());
 
-        const Pipeline pipeline = buildPipeline((options));
-
+        const Pipeline pipeline = buildPipeline(options);
         result = pipeline.run(context);
+        diagnosticEngine->flush();
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
@@ -45,18 +45,16 @@ int CompilerDriver::run(int argc, char **argv) {
     return result;
 }
 
-Pipeline CompilerDriver::buildPipeline(const CompilerOptions& options)
-{
+Pipeline CompilerDriver::buildPipeline(const CompilerOptions& options) {
     Pipeline pipeline;
 
     if (options.runLexer) {
         pipeline.addPass(std::make_unique<LexerPass>());
     }
 
-    if (options.runParser) {
+    /*if (options.runParser) {
         pipeline.addPass(std::make_unique<ParserPass>());
-    }
+    }*/
 
     return pipeline;
 }
-

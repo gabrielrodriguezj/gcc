@@ -1,21 +1,26 @@
 #ifndef GCC_LEXER_HPP
 #define GCC_LEXER_HPP
-#include <string>
 
 #include "Token.hpp"
+#include "../diagnostics/DiagnosticEngine.hpp"
 #include "gcc/source/SourceManager.hpp"
 
+/**
+ * On-demand lexical analysis (lazy tokenization): the lexer produces the next
+ * token when the parser requests it.
+ */
 class Lexer {
 public:
-    explicit Lexer(const SourceManager& sourceManager);
+    explicit Lexer(const SourceManager&, DiagnosticEngine&);
     Token next();
 
 private:
     const SourceManager& sourceManager_;
+    DiagnosticEngine& diagnostics_;
     std::string_view source_;
-    int current_;
-    int start_;
-    int line_;
+    size_t current_;
+    size_t start_;
+    size_t line_;
 
     void skipWhitespace();
     Token identifier();

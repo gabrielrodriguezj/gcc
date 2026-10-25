@@ -1,52 +1,60 @@
 
+#include <utility>
+
 #include "gcc/diagnostics/DiagnosticEngine.hpp"
 
-DiagnosticEngine::DiagnosticEngine
-    (DiagnosticConsumer& consumer): consumer_(consumer){
+#include <iostream>
+
+DiagnosticEngine::DiagnosticEngine(
+    DiagnosticConsumer& consumer, DiagnosticEmissionMode mode):
+    consumer_(consumer), mode_(mode){}
+
+void DiagnosticEngine::flush() {
+
+    while (emittedCount_ < diagnostics_.size()) {
+        consumer_.consume(diagnostics_[emittedCount_]);
+        ++emittedCount_;
+    }
 }
+
+void DiagnosticEngine::report( DiagnosticSeverity severity,
+                               SourceLocation location,
+                               std::string message) {
+
+    Diagnostic diagnostic;
+    diagnostic.severity = severity;
+    diagnostic.location = location;
+    diagnostic.message = std::move(message);
+    diagnostics_.push_back(std::move(diagnostic));
+
+    if (mode_ == DiagnosticEmissionMode::Immediate) {
+        flush();
+    }
+}
+
 
 void DiagnosticEngine::error(
     SourceLocation location,
-    std::string_view message)
-{
+    std::string message) {
+
     ++errorCount_;
-
-    Diagnostic diagnostic;
-
-    diagnostic.severity = DiagnosticSeverity::Error;
-    diagnostic.location = location;
-    diagnostic.message = std::string(message);
-
-    consumer_.consume(diagnostic);
+    report(DiagnosticSeverity::Error, location, std::move(message));
 }
 
 void DiagnosticEngine::warning(
     SourceLocation location,
-    std::string_view message) {
+    std::string message) {
+
     ++warningCount_;
-
-    Diagnostic diagnostic;
-
-    diagnostic.severity = DiagnosticSeverity::Warning;
-    diagnostic.location = location;
-    diagnostic.message = std::string(message);
-
-    consumer_.consume(diagnostic);
+    report(DiagnosticSeverity::Warning, location, std::move(message));
 }
 
 void DiagnosticEngine::note(
     SourceLocation location,
-    std::string_view message)
-{
-    //++note_;
+    std::string message) {
 
-    Diagnostic diagnostic;
-
-    diagnostic.severity = DiagnosticSeverity::Note;
-    diagnostic.location = location;
-    diagnostic.message = std::string(message);
-
-    consumer_.consume(diagnostic);
+    ++noteCount_;
+    report(DiagnosticSeverity::Note, location, std::move(message));
 }
 
 std::size_t DiagnosticEngine::errorCount() const {
